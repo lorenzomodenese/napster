@@ -1,5 +1,4 @@
 # coding: utf-8
-#from pymysql.connections import length
 import socket
 import os
 
@@ -38,7 +37,7 @@ while 1:
                 fileMD5=stringa_ricevuta[20:35]
                 fileName=stringa_ricevuta[35:100]
                 print ("\t\tOperazione AddFile SessionID: "+sessionID+" MD5: "+fileMD5+" Nome: "+fileName)
-                #operazioni aggiunta
+                #operazione aggiunta
                 
                 ncopie="999"
                 client.send("AADD"+ncopie)
