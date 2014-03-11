@@ -8,3 +8,5 @@ __date__ ="$11-mar-2014 9.44.54$"
 if __name__ == "__main__":
     
     print "Hello tutti23"
+    print "ciao"
+    print""
