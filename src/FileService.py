@@ -18,3 +18,12 @@ class FileService:
         file = File.File(filemd5, filename, ndownload)
         return file
     
+    @staticmethod
+    def getNCopy(database, filemd5):
+        database.execute("""SELECT count(*)
+                            FROM peer_has_file
+                            WHERE file_filemd5 = %s""",
+                            filemd5)
+        count, = database.fetchone()
+        return count
+    

@@ -19,15 +19,14 @@ class PeerService:
         return peer
     
     @staticmethod
-    def countFile(database, sessionid):
+    def getCountFile(database, sessionid):
         
         database.execute("""SELECT count(*)
                             FROM peer_has_file
                             WHERE peer_sessionid = %s""",
-                            self.sessionid)
-        count = c.fetchone()
-        if count == None:
-            count = 0
+                            sessionid)
+        
+        count, = database.fetchone()
         
         return count
     
