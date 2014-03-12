@@ -13,13 +13,13 @@ host = "::1"#'fd00::69df:154b:38fd:beb6'
 porta = 3000
 size=1024
 
-print("avvio directory")
+print("Avvio directory")
 s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind((host,porta))
 s.listen(5)
 while 1:
-    print("attesa connessione peer")
+    print("Attesa connessione peer")
     client, address = s.accept()
     newpid = os.fork()
     if(newpid==0):
@@ -34,7 +34,7 @@ while 1:
                 ipp2p=stringa_ricevuta[4:43]
                 pp2p=stringa_ricevuta[43:48]
                 print ("\t\tOperazione Login ipp2p: "+ipp2p+" porta: "+pp2p)
-                #Peer peer= Peer.Peer(ipp2p,pp2p) #no session id
+                peer= Peer(ipp2p,pp2p) #no session id
                 
                 sessionID="0123456789abcdef"
                 print("\t\tRestituisco: "+"ALGI"+sessionID)
@@ -105,6 +105,6 @@ while 1:
     else:
         client.close()
     
-print("terminato server")
+print("Terminato server")
     
 
