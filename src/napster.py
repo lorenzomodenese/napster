@@ -39,12 +39,11 @@ while 1:
                 print ("\t\tOperazione Login ipp2p: "+ipp2p+" porta: "+pp2p)
                 
                 conn_db=Connessione.Connessione()
-                
                 peer= PeerService.PeerService.insertNewPeer(conn_db.crea_cursore(), ipp2p, pp2p)
                 conn_db.esegui_commit()
                 conn_db.chiudi_connessione()
-                
                 sessionID=peer.sessionid
+                
                 print("\t\tRestituisco: "+"ALGI"+sessionID)
                 client.send("ALGI"+sessionID)
                 
