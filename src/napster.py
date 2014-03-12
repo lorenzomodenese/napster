@@ -1,6 +1,9 @@
 # coding: utf-8
 import socket
 import os
+import Peer
+import PeerService
+import Connessione
 
 def adattaStringa(lunghezzaFinale, stringa):
     ritorno=stringa
@@ -10,7 +13,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     
 
 host = "::1"#'fd00::69df:154b:38fd:beb6'
-porta = 3000
+porta = 5000
 size=1024
 
 print("Avvio directory")
@@ -34,9 +37,14 @@ while 1:
                 ipp2p=stringa_ricevuta[4:43]
                 pp2p=stringa_ricevuta[43:48]
                 print ("\t\tOperazione Login ipp2p: "+ipp2p+" porta: "+pp2p)
-                peer= Peer(ipp2p,pp2p) #no session id
                 
-                sessionID="0123456789abcdef"
+                conn_db=Connessione.Connessione()
+                
+                peer= PeerService.PeerService.insertNewPeer(conn_db.crea_cursore(), ipp2p, pp2p)
+                conn_db.esegui_commit()
+                conn_db.chiudi_connessione()
+                
+                sessionID=peer.sessionid
                 print("\t\tRestituisco: "+"ALGI"+sessionID)
                 client.send("ALGI"+sessionID)
                 
@@ -48,7 +56,7 @@ while 1:
                 print ("\t\tOperazione AddFile SessionID: "+sessionID+" MD5: "+fileMD5+" Nome: "+fileName)
                 #operazioni aggiunta
                 
-                ncopie==adattaStringa(3, "99")
+                ncopie=adattaStringa(3, str(int("000000009") ) )
                 print("\t\tRestituisco: "+"AADD" + ncopie )
                 client.send("AADD" + ncopie )
                 
@@ -59,7 +67,7 @@ while 1:
                 print ("\t\tOperazione DeleteFile SessionID: "+sessionID+" MD5: "+fileMD5)
                 #operazioni rimozione
                 
-                ncopie==adattaStringa(3, "99")
+                ncopie==adattaStringa(3, str(int("000000009") ) )
                 print("\t\tRestituisco: "+"ADEL"+ ncopie)
                 client.send("ADEL"+ ncopie )
                 
@@ -70,7 +78,7 @@ while 1:
                 print ("\t\tOperazione Find SessionID: "+sessionID+" Parametro ricerca: "+search)
                 #operazioni trova
                 
-                occorrenzeTrovate=adattaStringa(3, "99")
+                occorrenzeTrovate=adattaStringa(3, str(int("000000009") ) )
                 result="elenco file da db"
                 print("\t\tRestituisco: "+"AFIN"+ occorrenzeTrovate + result)
                 client.send("AFIN" + occorrenzeTrovate + result )
@@ -81,7 +89,7 @@ while 1:
                 print ("\t\tOperazione LogOut SessionID: "+sessionID)
                 #operazioni logout
                 
-                ncopieCancellate=adattaStringa(3, "99")
+                ncopieCancellate=adattaStringa(3, str(int("000000009") ) )
                 print("\t\tRestituisco: "+"ALOG" + ncopieCancellate )
                 client.send("ALOG" + ncopieCancellate )
                 
@@ -92,7 +100,7 @@ while 1:
                 print ("\t\tOperazione NotificaDownload SessionID: "+sessionID+" MD5: "+fileMD5)
                 #operazioni conteggio download
                 
-                ncopie=adattaStringa(5, "999")  
+                ncopie=adattaStringa(5, str(int("000000009") ) )  
                 print("\t\tRestituisco: "+"ADRE" + ncopie )
                 client.send("ADRE" + ncopie )
                 
