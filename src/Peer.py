@@ -40,6 +40,10 @@ class Peer:
                             WHERE peer_sessionid = %s""",
                             self.sessionid)
         
+        database.execute("""DELETE FROM file
+                            WHERE filemd5 NOT IN (SELECT file_filemd5
+                                                  FROM peer_has_file)""")
+        
         database.execute("""DELETE FROM peer
                             WHERE sessionid = %s""",
                             self.sessionid)
