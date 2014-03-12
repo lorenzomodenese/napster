@@ -9,3 +9,5 @@ peer = PeerService.PeerService.insertNewPeer(c, "0000:0000:0000:0000:0000:0000:0
 print peer.sessionid
 
 db.commit()
+
+#ciao
