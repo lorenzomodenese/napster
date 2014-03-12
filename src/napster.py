@@ -86,9 +86,16 @@ while 1:
             if operazione.upper()=="LOGO":
                 sessionID=stringa_ricevuta[4:20]
                 print ("\t\tOperazione LogOut SessionID: "+sessionID)
-                #operazioni logout
                 
-                ncopieCancellate=adattaStringa(3, str(int("000000009") ) )
+                conn_db=Connessione.Connessione()
+                peer = PeerService.PeerService.getPeer(conn_db.crea_cursore(), sessionID)
+                count = PeerService.PeerService.getCountFile(conn_db.crea_cursore(), sessionID)
+                peer.delete(conn_db.crea_cursore())
+                conn_db.esegui_commit()
+                conn_db.chiudi_connessione()
+                
+                
+                ncopieCancellate=adattaStringa(3, str(int(count) ) )
                 print("\t\tRestituisco: "+"ALOG" + ncopieCancellate )
                 client.send("ALOG" + ncopieCancellate )
                 
