@@ -7,19 +7,24 @@ c = db.cursor()
 files = FileService.FileService.getFiles(c, "stA")
 
 i = 0
-#print len(files)
+
+print "Numero file trovati (idmd5): ", len(files)
+
 while i < len(files):
-    print files[i].filemd5
-    print files[i].filename
-    print files[i].ndownload
+    print "filemd5: ", files[i].filemd5
+    print "filename: ", files[i].filename
+    print "ndownload: ", files[i].ndownload
+    
+    print "Numero copie: ", len(files[i].peers)
     
     j = 0
     while j < len(files[i].peers):
-        print files[i].peers[j].sessionid
-        print files[i].peers[j].ipp2p
-        print files[i].peers[j].pp2p
+        print "sessionid: ", files[i].peers[j].sessionid
+        print "ipp2p: ", files[i].peers[j].ipp2p
+        print "pp2p: ", files[i].peers[j].pp2p
         j = j + 1
     
+    print ""
     i = i + 1
 
 db.commit()

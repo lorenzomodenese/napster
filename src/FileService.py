@@ -1,4 +1,5 @@
 import File
+import Peer
 import sys
 
 class FileService:
@@ -42,34 +43,32 @@ class FileService:
         #print database._last_executed
         
         try:
-            i = 0
+            i = -1
             files = []
-            peers = []
+            #peers = []
             previous_filemd5 = ""
             while True:
             
                 filename, filemd5, ndownload, sessionid, ipp2p, pp2p = database.fetchone()
-                print filename, filemd5, ndownload, sessionid, ipp2p, pp2p
+                #print filename, filemd5, ndownload, sessionid, ipp2p, pp2p
                 
                 if filemd5 != previous_filemd5:
                     files.append(File.File(filemd5, filename, ndownload))
                     #print files[i].filemd5
-                    j = 0
-                    peers = []
-                    files[i].setPeers(peers)
+                    #j = 0
+                    #files[i].setPeers([])
                     previous_filemd5 = filemd5
                     i = i + 1
                 
-                print "ciao"
-                print len(files[i].peers), "Ciao"
+                #print len(files[i].peers)
                 files[i].peers.append(Peer.Peer(sessionid, ipp2p, pp2p))
-                print len(files[i].peers)
-                print "ciao"
-                print files[i].peers[j].sessionid
-                j = j + 1
+                #print len(files[i].peers)
+                #print files[i].peers[j].sessionid
+                #j = j + 1
         
         except:
-            print sys.exc_info()
+            pass
+            #print sys.exc_info()
             
         return files
         

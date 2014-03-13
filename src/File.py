@@ -3,6 +3,7 @@ class File:
         self.filemd5 = filemd5
         self.filename = filename
         self.ndownload = ndownload
+        self.peers = []
     
     def insert(self, database, sessionid):
         
@@ -53,5 +54,5 @@ class File:
         except:
             pass
     
-    def setPeers(self, peers):
-        self.peers = peers
+    #def setPeers(self, peers):
+    #    self.peers = peers
