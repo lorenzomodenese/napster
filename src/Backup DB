@@ -1,0 +1,56 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `napster` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `napster` ;
+
+-- -----------------------------------------------------
+-- Table `napster`.`peer`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `napster`.`peer` (
+  `sessionid` CHAR(16) NOT NULL ,
+  `ipp2p` CHAR(39) NOT NULL ,
+  `pp2p` CHAR(5) NOT NULL ,
+  PRIMARY KEY (`sessionid`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `napster`.`file`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `napster`.`file` (
+  `filemd5` CHAR(16) NOT NULL ,
+  `filename` CHAR(100) NOT NULL ,
+  `ndownload` INT NULL ,
+  PRIMARY KEY (`filemd5`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `napster`.`peer_has_file`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `napster`.`peer_has_file` (
+  `file_filemd5` CHAR(16) NOT NULL ,
+  `peer_sessionid` CHAR(16) NOT NULL ,
+  PRIMARY KEY (`file_filemd5`, `peer_sessionid`) ,
+  INDEX `fk_file_has_peer_peer1_idx` (`peer_sessionid` ASC) ,
+  INDEX `fk_file_has_peer_file_idx` (`file_filemd5` ASC) ,
+  CONSTRAINT `fk_file_has_peer_file`
+    FOREIGN KEY (`file_filemd5` )
+    REFERENCES `napster`.`file` (`filemd5` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_file_has_peer_peer1`
+    FOREIGN KEY (`peer_sessionid` )
+    REFERENCES `napster`.`peer` (`sessionid` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `napster` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
