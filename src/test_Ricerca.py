@@ -7,13 +7,14 @@ c = db.cursor()
 files = FileService.FileService.getFiles(c, "stA")
 
 i = 0
+occorrenzeMD5=len(files)
 
-print "Numero file trovati (idmd5): ", len(files)
+print ("Numero file trovati (idmd5): ", occorrenzeMD5)
 
 while i < len(files):
     print "filemd5: ", files[i].filemd5
     print "filename: ", files[i].filename
-    print "ndownload: ", files[i].ndownload
+    #print "ndownload: ", files[i].ndownload
     
     print "Numero copie: ", len(files[i].peers)
     
