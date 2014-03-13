@@ -14,7 +14,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     return ritorno
     
 
-host = "fd00::7481:4a85:5d87:9a52"
+host = "::1"#"fd00::7481:4a85:5d87:9a52"
 porta = 3000
 size=1024
 
@@ -34,6 +34,7 @@ while 1:
                 while 1:  #mi controllo la persistenza del peer
                     stringa_ricevuta = client.recv(size)
                     if stringa_ricevuta== "":
+                        print("\t\tsocket vuota")
                         break
                     print("\tMESSAGGIO RICEVUTO: "+stringa_ricevuta.decode())
                     operazione=stringa_ricevuta[0:4]
@@ -131,6 +132,7 @@ while 1:
                         ncopie=adattaStringa(5, str(int(file.ndownload) ) )  
                         print("\t\tRestituisco: "+"ADRE" + ncopie )
                         client.send("ADRE" + ncopie )
+            
             except Exception as nonpersistente:
                 print e
                 print("Connessione non persistente")
