@@ -1,2 +1,15 @@
 ipv6 
-Luca ->  fd00:0000:0000:0000:69df:154b:38fd:beb6
+gruppo 4
+    Luca ->  fd00:0000:0000:0000:7481:4a85:5d87:9a52
+
+gruppo 12 
+         -> fd00:0000:0000:0000:924c:e5ff:fe56:2653
+
+
+
+
+
+help shell:
+
+ps -A | grep python
+killall -9 python
