@@ -69,11 +69,17 @@ while 1:
     #operazione delete File         
             if operazione.upper()=="DELF":
                 sessionID=stringa_ricevuta[4:20]
-                fileMD5=stringa_ricevuta[20:35]
+                fileMD5=stringa_ricevuta[20:36]
                 print ("\t\tOperazione DeleteFile SessionID: "+sessionID+" MD5: "+fileMD5)
-                #operazioni rimozione
                 
-                ncopie==adattaStringa(3, str(int("000000009") ) )
+                conn_db=Connessione.Connessione()
+                file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5)
+                file.delete(conn_db.crea_cursore(), sessionID)
+                count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5)
+                conn_db.esegui_commit()
+                conn_db.chiudi_connessione()
+                
+                ncopie=adattaStringa(3, str(int(count) ) )
                 print("\t\tRestituisco: "+"ADEL"+ ncopie)
                 client.send("ADEL"+ ncopie )
                 
