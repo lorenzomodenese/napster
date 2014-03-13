@@ -3,6 +3,8 @@ import socket
 import os
 import Peer
 import PeerService
+import File
+import FileService
 import Connessione
 
 def adattaStringa(lunghezzaFinale, stringa):
@@ -12,7 +14,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     return ritorno
     
 
-host = "::1"#'fd00::69df:154b:38fd:beb6'
+host = "::1"#"fd00::69df:154b:38fd:beb6"
 porta = 5000
 size=1024
 
@@ -50,12 +52,17 @@ while 1:
     #operazione add File         
             if operazione.upper()=="ADDF":
                 sessionID=stringa_ricevuta[4:20]
-                fileMD5=stringa_ricevuta[20:35]
-                fileName=stringa_ricevuta[35:135]
+                fileMD5=stringa_ricevuta[20:36]
+                fileName=stringa_ricevuta[36:136]
                 print ("\t\tOperazione AddFile SessionID: "+sessionID+" MD5: "+fileMD5+" Nome: "+fileName)
-                #operazioni aggiunta
                 
-                ncopie=adattaStringa(3, str(int("000000009") ) )
+                conn_db=Connessione.Connessione()
+                FileService.FileService.insertNewFile(conn_db.crea_cursore(), sessionID, fileMD5, fileName)
+                count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5)
+                conn_db.esegui_commit()
+                conn_db.chiudi_connessione()
+                
+                ncopie=adattaStringa(3, str(int(count) ) )
                 print("\t\tRestituisco: "+"AADD" + ncopie )
                 client.send("AADD" + ncopie )
                 
