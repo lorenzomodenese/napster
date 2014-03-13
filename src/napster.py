@@ -100,27 +100,27 @@ while 1:
                         i = 0
                         occorrenzeMD5=len(files)
                         risultatoRicerca=risultatoRicerca+adattaStringa(3, str(occorrenzeMD5))
-                        print ("Numero file trovati (idmd5): ", occorrenzeMD5)
+                        print ("\t\\tNumero file trovati (idmd5): ", occorrenzeMD5)
 
                         while i < len(files):
-                            print "filemd5: ", files[i].filemd5
+                            print "\t\tfilemd5: ", files[i].filemd5
                             risultatoRicerca=risultatoRicerca+files[i].filemd5
                             
-                            print "filename: ", files[i].filename
+                            print "\t\tfilename: ", files[i].filename
                             risultatoRicerca=risultatoRicerca+files[i].filename
                             
                             print "ndownload: ", files[i].ndownload
 
-                            print "Numero copie: ", len(files[i].peers)
+                            print "\t\tNumero copie: ", len(files[i].peers)
                             risultatoRicerca=risultatoRicerca+adattaStringa(3, str(len(files[i].peers)))
 
                             j = 0
                             while j < len(files[i].peers):
                                 print "sessionid: ", files[i].peers[j].sessionid
-                                print "ipp2p: ", files[i].peers[j].ipp2p
+                                print "\t\t\tipp2p: ", files[i].peers[j].ipp2p
                                 risultatoRicerca=risultatoRicerca+files[i].peers[j].ipp2p
                                 
-                                print "pp2p: ", files[i].peers[j].pp2p
+                                print "\t\t\tpp2p: ", files[i].peers[j].pp2p
                                 risultatoRicerca=risultatoRicerca+files[i].peers[j].pp2p
                                 
                                 j = j + 1
