@@ -14,7 +14,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     return ritorno
     
 
-host = "::1"#fd00::7cd7:4c32:8ff2:592b"
+host = "fd00::7cd7:4c32:8ff2:592b"
 porta = 3000
 size=1024
 
@@ -182,5 +182,3 @@ while 1:
         client.close()
     
 print("Terminato server")
-    
-
