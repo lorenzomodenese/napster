@@ -12,7 +12,7 @@ db = MySQLdb.connect(user="napster", passwd="napster", db="napster")
 c = db.cursor()
 
 file = FileService.FileService.getFile(c, filemd5)
-file.update(c, file.filename, int(file.ndownload) + 1)
+file.update(c, file.filename, file.ndownload + 1)
 
 print file.ndownload
 

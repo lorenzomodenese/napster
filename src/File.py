@@ -16,11 +16,10 @@ class File:
             self.update(database, self.filename, self.ndownload)
             
         else:
-            
+
             database.execute("""INSERT INTO file
                                 (filemd5, filename, ndownload)
-                                VALUES
-                                (%s, %s, %s)""",
+                                VALUES (%s, %s, %s)""",
                                 (self.filemd5, self.filename, self.ndownload))
 
         try:
@@ -53,3 +52,6 @@ class File:
                                 (self.filemd5))
         except:
             pass
+    
+    def setPeers(self, peers):
+        self.peers = peers
