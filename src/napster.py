@@ -14,7 +14,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     return ritorno
     
 
-host = "::1"#"fd00::69df:154b:38fd:beb6"
+host = "fd00::7481:4a85:5d87:9a52"
 porta = 3000
 size=1024
 
@@ -97,6 +97,7 @@ while 1:
                 
         #operazione Logout         
             if operazione.upper()=="LOGO":
+                print("passo")
                 sessionID=stringa_ricevuta[4:20]
                 print ("\t\tOperazione LogOut SessionID: "+sessionID)
                 
