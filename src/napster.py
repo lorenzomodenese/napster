@@ -15,7 +15,7 @@ def adattaStringa(lunghezzaFinale, stringa):
     
 
 host = "::1"#"fd00::69df:154b:38fd:beb6"
-porta = 5000
+porta = 3000
 size=1024
 
 print("Avvio directory")
@@ -115,11 +115,16 @@ while 1:
         #operazione notifica Download File         
             if operazione.upper()=="DREG":
                 sessionID=stringa_ricevuta[4:20]
-                fileMD5=stringa_ricevuta[20:35]
+                fileMD5=stringa_ricevuta[20:36]
                 print ("\t\tOperazione NotificaDownload SessionID: "+sessionID+" MD5: "+fileMD5)
-                #operazioni conteggio download
                 
-                ncopie=adattaStringa(5, str(int("000000009") ) )  
+                conn_db=Connessione.Connessione()
+                file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5)
+                file.update(conn_db.crea_cursore(), file.filename, int(file.ndownload) + 1)
+                conn_db.esegui_commit()
+                conn_db.chiudi_connessione()
+                
+                ncopie=adattaStringa(5, str(int(file.ndownload) ) )  
                 print("\t\tRestituisco: "+"ADRE" + ncopie )
                 client.send("ADRE" + ncopie )
                 
