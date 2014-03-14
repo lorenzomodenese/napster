@@ -21,20 +21,20 @@ def elimina_spazi_iniziali_finali(stringa):
     for i in range (0,len(stringa)):
         if(stringa[i]!=" " or lettera==True):
             ritorno=ritorno+stringa[i]
-        if(stringa[i]==" " and i< (len(stringa)-1) and stringa[i+1]!=" " ):
-            lettera=True
-    ritorno= ritorno[::-1]   
+            lettera = True
    
+    ritorno= ritorno[::-1]   
+
     for i in range (0,len(ritorno)):
         if(ritorno[i]!=" " or lettera2==True):
             ritorno2=ritorno2+ritorno[i]
-        if(ritorno[i]==" " and i< (len(ritorno)-1) and ritorno[i+1]!=" " ):
-            lettera2=True
-   
+            lettera2 = True
+
     return ritorno2[::-1]
+
     
 
-host = "fd00::7cd7:4c32:8ff2:592b"
+host = "::1"#fd00::7cd7:4c32:8ff2:592b"
 porta = 3000
 size=1024
 
@@ -112,8 +112,9 @@ while 1:
                     if operazione.upper()=="FIND":
                         sessionID=stringa_ricevuta[4:20]
                         search=stringa_ricevuta[20:40]
+                        #print("*"+search+"*")
                         search=elimina_spazi_iniziali_finali(search)
-                        print ("\t\tOperazione Find SessionID: "+sessionID+" Parametro ricerca: #"+search+"#")
+                        print ("\t\tOperazione Find SessionID: "+sessionID+" Parametro ricerca:  #"+search+"#")
                         
                         risultatoRicerca="AFIN"
                         conn_db=Connessione.Connessione()
@@ -121,7 +122,7 @@ while 1:
                         i = 0
                         occorrenzeMD5=len(files)
                         risultatoRicerca=risultatoRicerca+adattaStringa(3, str(occorrenzeMD5))
-                        print ("\t\\tNumero file trovati (idmd5): ", occorrenzeMD5)
+                        print ("\t\tNumero file trovati (idmd5): " + str(occorrenzeMD5) )
 
                         while i < len(files):
                             print "\t\tfilemd5: ", files[i].filemd5
@@ -137,7 +138,7 @@ while 1:
 
                             j = 0
                             while j < len(files[i].peers):
-                                print "sessionid: ", files[i].peers[j].sessionid
+                                #print "sessionid: ", files[i].peers[j].sessionid
                                 print "\t\t\tipp2p: ", files[i].peers[j].ipp2p
                                 risultatoRicerca=risultatoRicerca+files[i].peers[j].ipp2p
                                 
