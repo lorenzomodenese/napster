@@ -12,6 +12,26 @@ def adattaStringa(lunghezzaFinale, stringa):
     for i in range(len(stringa), lunghezzaFinale):
         ritorno="0"+ritorno
     return ritorno
+
+def elimina_spazi_iniziali_finali(stringa):
+    ritorno=""
+    ritorno2=""
+    lettera=False
+    lettera2=False
+    for i in range (0,len(stringa)):
+        if(stringa[i]!=" " or lettera==True):
+            ritorno=ritorno+stringa[i]
+        if(stringa[i]==" " and i< (len(stringa)-1) and stringa[i+1]!=" " ):
+            lettera=True
+    ritorno= ritorno[::-1]   
+   
+    for i in range (0,len(ritorno)):
+        if(ritorno[i]!=" " or lettera2==True):
+            ritorno2=ritorno2+ritorno[i]
+        if(ritorno[i]==" " and i< (len(ritorno)-1) and ritorno[i+1]!=" " ):
+            lettera2=True
+   
+    return ritorno2[::-1]
     
 
 host = "fd00::7cd7:4c32:8ff2:592b"
@@ -92,7 +112,8 @@ while 1:
                     if operazione.upper()=="FIND":
                         sessionID=stringa_ricevuta[4:20]
                         search=stringa_ricevuta[20:40]
-                        print ("\t\tOperazione Find SessionID: "+sessionID+" Parametro ricerca: "+search)
+                        search=elimina_spazi_iniziali_finali(search)
+                        print ("\t\tOperazione Find SessionID: "+sessionID+" Parametro ricerca: #"+search+"#")
                         
                         risultatoRicerca="AFIN"
                         conn_db=Connessione.Connessione()
