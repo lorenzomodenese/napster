@@ -1,0 +1,5 @@
+
+sudo apt-get install python-pip
+sudo pip install PyMySQL
+
+sudo apt-get install python-mysqldb.
