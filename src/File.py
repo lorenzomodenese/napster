@@ -24,7 +24,7 @@ class File:
         
         if find:
             
-            self.update(database, self.filename, ndownload) # filename potrebbe essere diverso, mentre ndownload è quello trovato dal database
+            self.update(database, self.filename, ndownload) # filename potrebbe essere diverso, mentre ndownload rappresenta quello trovato dal database
             
         else:
 
