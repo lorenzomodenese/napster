@@ -34,7 +34,7 @@ def elimina_spazi_iniziali_finali(stringa):
 
     
 
-host = "::1"#fd00::7cd7:4c32:8ff2:592b"
+host = "fd00::d166:e6ca:5deb:a7ce"
 porta = 3000
 size=1024
 
@@ -191,7 +191,7 @@ while 1:
                         client.send("ADRE" + ncopie )
             
             except Exception as nonpersistente:
-                print e
+                print nonpersistente
                 print("Connessione non persistente")
                 
         except Exception as e: 
