@@ -34,7 +34,7 @@ def elimina_spazi_iniziali_finali(stringa):
 
     
 
-host = "fd00::d166:e6ca:5deb:a7ce"
+host = "fd00::18f4:832b:b563:b1c5"
 porta = 3000
 size=1024
 
@@ -131,7 +131,7 @@ while 1:
                             print "\t\tfilename: ", files[i].filename
                             risultatoRicerca=risultatoRicerca+files[i].filename
                             
-                            print "ndownload: ", files[i].ndownload
+                            print "\t\tndownload: ", files[i].ndownload
 
                             print "\t\tNumero copie: ", len(files[i].peers)
                             risultatoRicerca=risultatoRicerca+adattaStringa(3, str(len(files[i].peers)))
