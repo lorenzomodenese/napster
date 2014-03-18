@@ -7,14 +7,24 @@ class File:
     
     def insert(self, database, sessionid):
         
-        database.execute("""SELECT *
+        #database.execute("""SELECT *
+        #                    FROM file
+        #                    WHERE filemd5 = %s""",
+        #                    self.filemd5)
+        database.execute("""SELECT filemd5, filename, ndownload
                             FROM file
                             WHERE filemd5 = %s""",
                             self.filemd5)
         
-        if database.fetchone() != None:
+        find = True
+        try:
+            filemd5, filename, ndownload = dabase.fetchone()
+        except:
+            find = False
+        
+        if find:
             
-            self.update(database, self.filename, self.ndownload)
+            self.update(database, self.filename, ndownload) # filename potrebbe essere diverso, mentre ndownload è quello trovato dal database
             
         else:
 
