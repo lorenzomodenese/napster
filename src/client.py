@@ -1,4 +1,5 @@
-#!/usr/bin/python           
+#!/usr/bin/python 
+#peer di esempio per interfacciarsi alla directory
 
 import socket               
 
