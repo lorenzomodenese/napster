@@ -34,7 +34,9 @@ def elimina_spazi_iniziali_finali(stringa):
 
     
 
-host = "fd00::18f4:832b:b563:b1c5"
+#host = "fd00::18f4:832b:b563:b1c5"
+#host = "fd00::24f4:969:d4f2:ad07"
+host = "::1"
 porta = 3000
 size=1024
 
@@ -182,7 +184,8 @@ while 1:
 
                         conn_db=Connessione.Connessione()
                         file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5.upper())
-                        file.update(conn_db.crea_cursore(), (file.filename).upper(), int(file.ndownload) + 1)
+                        file.ndownload = int(file.ndownload) + 1
+                        file.update(conn_db.crea_cursore())
                         conn_db.esegui_commit()
                         conn_db.chiudi_connessione()
 
