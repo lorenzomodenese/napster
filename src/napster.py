@@ -34,13 +34,11 @@ def elimina_spazi_iniziali_finali(stringa):
 
     
 
-<<<<<<< HEAD
 #host = "fd00::18f4:832b:b563:b1c5"
 #host = "fd00::24f4:969:d4f2:ad07"
-host = "::1"
-=======
+#host = "::1"
 host = "fd00::5907:c299:3fd3:e5ea"#"fd00::18f4:832b:b563:b1c5"
->>>>>>> 92ee6447a16004916f6f749a95bedf12beccdb50
+
 porta = 3000
 size=1024
 
