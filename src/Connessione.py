@@ -1,5 +1,6 @@
 import MySQLdb
 
+
 class Connessione:
     def __init__(self):
         try:

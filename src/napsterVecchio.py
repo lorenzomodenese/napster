@@ -34,13 +34,7 @@ def elimina_spazi_iniziali_finali(stringa):
 
     
 
-<<<<<<< HEAD
-#host = "fd00::18f4:832b:b563:b1c5"
-#host = "fd00::24f4:969:d4f2:ad07"
-host = "::1"
-=======
-host = "fd00::5907:c299:3fd3:e5ea"#"fd00::18f4:832b:b563:b1c5"
->>>>>>> 92ee6447a16004916f6f749a95bedf12beccdb50
+host = "fd00::18f4:832b:b563:b1c5"
 porta = 3000
 size=1024
 
@@ -62,7 +56,7 @@ while 1:
                     if stringa_ricevuta== "":
                         print("\t\tsocket vuota")
                         break
-                    #print("\tMESSAGGIO RICEVUTO: "+stringa_ricevuta.decode())
+                    print("\tMESSAGGIO RICEVUTO: "+stringa_ricevuta.decode())
                     operazione=stringa_ricevuta[0:4]
 
             #operazione Login
@@ -83,16 +77,13 @@ while 1:
             #operazione add File         
                     if operazione.upper()=="ADDF":
                         sessionID=stringa_ricevuta[4:20]
-			print (sessionID)
                         fileMD5=stringa_ricevuta[20:36]
-			print (fileMD5)
                         fileName=stringa_ricevuta[36:136]
-			print (fileName)
                         print ("\t\tOperazione AddFile SessionID: "+sessionID+" MD5: "+fileMD5+" Nome: "+fileName)
 
                         conn_db=Connessione.Connessione()
-                        FileService.FileService.insertNewFile(conn_db.crea_cursore(), sessionID, fileMD5, fileName.upper())
-                        count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5)
+                        FileService.FileService.insertNewFile(conn_db.crea_cursore(), sessionID, fileMD5.upper(), fileName.upper())
+                        count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5.upper())
                         conn_db.esegui_commit()
                         conn_db.chiudi_connessione()
 
@@ -104,12 +95,12 @@ while 1:
                     if operazione.upper()=="DELF":
                         sessionID=stringa_ricevuta[4:20]
                         fileMD5=stringa_ricevuta[20:36]
-                        print ("\t\tOperazione DeleteFile SessionID: "+sessionID+" MD5: "+fileMD5)
+                        print ("\t\tOperazione DeleteFile SessionID: "+sessionID+" MD5: "+fileMD5.upper())
 
                         conn_db=Connessione.Connessione()
-                        file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5)
+                        file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5.upper())
                         file.delete(conn_db.crea_cursore(), sessionID)
-                        count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5)
+                        count = FileService.FileService.getNCopy(conn_db.crea_cursore(), fileMD5.upper())
                         conn_db.esegui_commit()
                         conn_db.chiudi_connessione()
 
@@ -180,21 +171,18 @@ while 1:
 
 
                         ncopieCancellate=adattaStringa(3, str(int(count) ) )
-                        print("\t\tRestituisco: "+"ALGO" + ncopieCancellate )
-                        client.send("ALGO" + ncopieCancellate )
+                        print("\t\tRestituisco: "+"ALOG" + ncopieCancellate )
+                        client.send("ALOG" + ncopieCancellate )
 
-            #operazione notifica Download File   
-		        
+            #operazione notifica Download File         
                     if operazione.upper()=="DREG":
-			print ("il peer scarica")  
                         sessionID=stringa_ricevuta[4:20]
                         fileMD5=stringa_ricevuta[20:36]
-                        print ("\t\tOperazione NotificaDownload SessionID: "+sessionID+" MD5: "+fileMD5)
+                        print ("\t\tOperazione NotificaDownload SessionID: "+sessionID+" MD5: "+fileMD5.upper())
 
                         conn_db=Connessione.Connessione()
                         file = FileService.FileService.getFile(conn_db.crea_cursore(), fileMD5.upper())
-                        file.ndownload = int(file.ndownload) + 1
-                        file.update(conn_db.crea_cursore())
+                        file.update(conn_db.crea_cursore(), (file.filename).upper(), int(file.ndownload) + 1)
                         conn_db.esegui_commit()
                         conn_db.chiudi_connessione()
 
