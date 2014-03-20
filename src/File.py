@@ -7,21 +7,27 @@ class File:
     
     def insert(self, database, sessionid):
         
-        database.execute("""SELECT *
-                            FROM file
-                            WHERE filemd5 = %s""",
-                            self.filemd5)
-        
-        if database.fetchone() != None:
-            
-            self.update(database, self.filename, self.ndownload)
-            
-        else:
-
+        #database.execute("""SELECT filemd5, filename, ndownload
+        #                    FROM file
+        #                    WHERE filemd5 = %s""",
+        #                    self.filemd5)
+        #
+        #try:
+        #    filemd5, filename, ndownload = database.fetchone()
+        #    
+        #    # se il file esiste gia', memorizzo ndownload nell'oggetto e aggiorno il file sul database 
+        #    # filename potrebbe essere diverso, mentre ndownload rappresenta quello trovato dal database
+        #    self.ndownload = ndownload
+        #    self.update(database, self.filename, self.ndownload)
+        #    
+        #except:
+        try:
             database.execute("""INSERT INTO file
                                 (filemd5, filename, ndownload)
                                 VALUES (%s, %s, %s)""",
                                 (self.filemd5, self.filename, self.ndownload))
+        except:
+            pass
 
         try:
             database.execute("""INSERT INTO peer_has_file
@@ -32,9 +38,7 @@ class File:
         except:
             pass
     
-    def update(self, database, filename, ndownload):
-        self.filename = filename
-        self.ndownload = ndownload
+    def update(self, database):
         
         database.execute("""UPDATE file
                             SET filename = %s, ndownload = %s

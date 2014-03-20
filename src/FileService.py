@@ -4,11 +4,30 @@ import sys
 
 class FileService:
     
+    #@staticmethod
+    #def insertNewFile(database, sessionid, filemd5, filename):
+        #file = File.File(filemd5, filename, 0)
+        #file.insert(database, sessionid)
+        #return file
+    
     @staticmethod
     def insertNewFile(database, sessionid, filemd5, filename):
-        file = File.File(filemd5, filename, 0)
-        file.insert(database, sessionid)
-        return file
+        try:
+            file = FileService.getFile(database, filemd5)
+            
+            file.filename = filename
+            
+            file.update(database)
+        except:
+            pass
+            
+        
+        try:
+            file = File.File(filemd5, filename, 0)
+            
+            file.insert(database, sessionid)
+        except:
+            pass
     
     @staticmethod
     def getFile(database, filemd5):
